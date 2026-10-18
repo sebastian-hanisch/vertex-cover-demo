@@ -253,3 +253,9 @@ def test_exact_cover_equals_brute_force(seed):
     g = S.random_graph(n, 10 + 10 * (seed % 8), seed)
     r = A.exact_cover(g.adj)
     assert r.tau == tau_brute(g.adj) == len(r.cover) and A.is_cover(g.adj, r.cover) and r.lower <= r.tau
+
+
+def test_bipartition_colours_an_isolated_last_vertex_and_every_component():
+    """Aus der Mutationsprüfung: jeder Knoten ist ein möglicher Startknoten (auch der letzte, isolierte)."""
+    side, ok = A.bipartition(S.adjacency_from_edges(5, [(0, 1), (2, 3)]))
+    assert ok and side == [0, 1, 0, 1, 0]
